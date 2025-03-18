@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import RestaurantCard from "./RestaurantCard.jsx";
+import RestaurantCard, {EnhancedResCard} from "./RestaurantCard.jsx";
 import Shimmer from "./Shimmer.jsx";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus.jsx";
@@ -31,15 +31,18 @@ const Body = () => {
 			console.error("Error fetching data:", error);
 		}
 	};
-
 	console.log(useOnlineStatus());
+	if (!useOnlineStatus())
+		return (
+			<h1 className="text-center text-4xl">
+				Looks Like youre Offline 🌐
+			</h1>
+		);
 
 	if (listOfRes.length === 0) {
 		return <Shimmer />;
 	}
 	console.log(filteredRestraunt);
-
-
 
 	return (
 		<div className="body">
@@ -82,13 +85,13 @@ const Body = () => {
 					Top Rated Restaurant
 				</button>
 			</div>
-			<div className="res-container m-3 flex flex-wrap justify-center space-x-7 space-y-5">
+			<div className="res-container m-3 flex flex-wrap justify-center space-x-9 space-y-5">
 				{filteredRestraunt?.map((restaurant) => (
 					<Link
 						to={"/restaurant/" + restaurant?.info.id}
 						key={restaurant?.info.id}
 					>
-						<RestaurantCard resData={restaurant} />
+						<EnhancedResCard resData={restaurant} />
 					</Link>
 				))}
 			</div>
