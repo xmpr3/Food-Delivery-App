@@ -3,18 +3,15 @@ import Shimmer from "./Shimmer.jsx";
 import { CDN_URL, MENU_API } from "../utils/constant.jsx";
 import { useParams } from "react-router-dom";
 import OffersList from "./OffersList.jsx";
-import MenuItem from "./MenuItem.jsx";
+
+import MenuCategory from "./MenuCategory.jsx";
 
 const RestaurantMenu = () => {
 	const [restaurantInfo, setRestaurantInfo] = useState(null);
 	const [category, setCategory] = useState(null);
 	const [offers, setOffers] = useState(null);
-	const [showAccordian, setShowAccordian] = useState(false);
-
-	const { resId } = useParams();
-	const toggleAccordian = () => {
-		setShowAccordian(!showAccordian);
-	};
+	
+const { resId } = useParams();
 
 	useEffect(() => {
 		fetchMenu();
@@ -69,8 +66,7 @@ const RestaurantMenu = () => {
 
 			<OffersList offers={offers} />
 
-			{/* Only show recommended menu if it exists */}
-			<div>
+			{/*<div>
 				{category.map((recommendedMenu, index) => (
 					<div className="Recommended-Menu mx-5" key={index}>
 						<h3
@@ -83,7 +79,8 @@ const RestaurantMenu = () => {
 						<MenuItem recommendedMenu={recommendedMenu} />
 					</div>
 				))}
-			</div>
+			</div>*/}
+			<MenuCategory category={category}/>
 		</>
 	);
 };
