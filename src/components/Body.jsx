@@ -26,12 +26,12 @@ const Body = () => {
 					?.restaurants || [];
 			setListOfRes(restaurants);
 			setFilteredRestraunt(restaurants);
-			console.log(json);
+			
 		} catch (error) {
 			console.error("Error fetching data:", error);
 		}
 	};
-	console.log(useOnlineStatus());
+	
 	if (!useOnlineStatus())
 		return (
 			<h1 className="text-center text-4xl">
@@ -42,7 +42,7 @@ const Body = () => {
 	if (listOfRes.length === 0) {
 		return <Shimmer />;
 	}
-	console.log(filteredRestraunt);
+	
 
 	return (
 		<div className="body">

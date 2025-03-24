@@ -3,15 +3,17 @@ import Shimmer from "./Shimmer.jsx";
 import { CDN_URL, MENU_API } from "../utils/constant.jsx";
 import { useParams } from "react-router-dom";
 import OffersList from "./OffersList.jsx";
-
 import MenuCategory from "./MenuCategory.jsx";
 
 const RestaurantMenu = () => {
 	const [restaurantInfo, setRestaurantInfo] = useState(null);
 	const [category, setCategory] = useState(null);
 	const [offers, setOffers] = useState(null);
+	const [showIndex, setShowIndex] = useState(0);
+
+	const { resId } = useParams();
+
 	
-const { resId } = useParams();
 
 	useEffect(() => {
 		fetchMenu();
@@ -38,7 +40,7 @@ const { resId } = useParams();
 			console.error("Error fetching data:", error);
 		}
 	};
-
+	
 	// Show shimmer loader until restaurant info is available
 	if (!restaurantInfo) return <Shimmer />;
 
@@ -66,21 +68,14 @@ const { resId } = useParams();
 
 			<OffersList offers={offers} />
 
-			{/*<div>
-				{category.map((recommendedMenu, index) => (
-					<div className="Recommended-Menu mx-5" key={index}>
-						<h3
-							className="text-[18px] font-bold cursor-pointer"
-							onClick={toggleAccordian}
-						>
-							{`${recommendedMenu?.card?.card?.title} (${recommendedMenu?.card?.card?.itemCards?.length})`}
-						</h3>
-
-						<MenuItem recommendedMenu={recommendedMenu} />
-					</div>
-				))}
-			</div>*/}
-			<MenuCategory category={category}/>
+			{category.map((data, index) => (
+				<MenuCategory
+					key={data?.card?.card?.categoryId}
+					item={data?.card?.card}
+					showAccordian={index == showIndex ? true : false}
+					setShowIndex={()=> index == showIndex ? setShowIndex(null) : setShowIndex(index)}
+				/>
+			))}
 		</>
 	);
 };
