@@ -1,6 +1,5 @@
 import React from "react";
-import { CDN_URL } from "../utils/constant.jsx"; // Ensure you have a CDN_URL constant for image URLs
-
+import { CDN_URL } from "../utils/constant.jsx"; 
 const RestaurantCard = ({ resData } ) => {
 
 	// Destructure the nested info object
@@ -10,14 +9,13 @@ const RestaurantCard = ({ resData } ) => {
 		avgRating,
 		areaName,
 		cloudinaryImageId,
-		costForTwo,
 		sla,
 	} = resData?.info || {};
 
 	return (
 		<div className="res-card w-[273px] cursor-pointer hover:scale-95 transition-transform duration-200">
 			<img
-				src={`${CDN_URL}${cloudinaryImageId}`} // Use the dynamic image URL
+				src={`${CDN_URL}${cloudinaryImageId}`}
 				alt={name}
 				className="w-full h-[181px] object-cover rounded-2xl shadow-md"
 			/>
